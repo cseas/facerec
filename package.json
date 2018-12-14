@@ -1,0 +1,28 @@
+{
+  "name": "autharapp",
+  "version": "1.0.0",
+  "description": "authar app",
+  "main": "index.js",
+  "dependencies": {
+    "@material/form-field": "^0.2.6",
+    "@material/textfield": "^0.2.10",
+    "base64-img": "^1.0.3",
+    "express": "^4.15.3",
+    "material-components-web": "^0.12.1",
+    "node-base64-image": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://autharapp@bitbucket.org/authara/authar.git"
+  },
+  "keywords": [
+    "authar"
+  ],
+  "author": "author",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/authara/authar#readme"
+}

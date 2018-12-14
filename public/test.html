@@ -1,0 +1,106 @@
+
+ <head>
+    <title>Test authar</title>
+    <link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+
+
+ <body>
+
+ <video id="video"  style="position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+   
+    background-size: cover; " autoplay></video>
+<canvas id="canvas" width="200px" height="100px"></canvas>
+
+<script type="text/javascript">
+	
+	// Grab elements, create settings, etc.
+var video = document.getElementById('video');
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+        context.drawImage(video, 0, 0, 200, 100);
+    });
+
+
+}
+
+$(document).ready(function(){ 
+	
+});
+
+function login()
+{
+	context.drawImage(video, 0, 0, 150, 100);
+	var data =   canvas.toDataURL('image/png');
+	console.log(data);
+
+	sendrequest(data);
+
+}
+function sendrequest(data)
+{
+	var url = "/auth"
+	
+	var lat,long;
+	navigator.geolocation.getCurrentPosition(function(pos){
+		lat = pos.coords.latitude;
+		long = pos.coords.longitude;
+
+$.post("/auth",{data: data, lat: lat, long: long}, function(data){});
+},function(error){console.log("failed")});
+
+/*$.ajax({
+  type: "POST",
+  url: url,
+  data: data,
+  function(data, textStatus, jqXHR)
+    {
+        //data - response from server
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+ 
+    }
+});*/
+
+
+}
+
+
+
+</script>
+   <center> <div style="background: #fff; opacity: .8;  height: 300px; width: 300px; ">
+
+   <br><h2 class="mdc-typography--display2">Authar</h2>
+    <div class="mdc-textfield">
+  <input type="text" id="my-textfield" class="mdc-textfield__input" placeholder="username"/><br>
+  <br>
+  <br>
+  <input type="password" id="my-textfield" class="mdc-textfield__input" placeholder="password"/>
+   <br>
+  <br>
+  <input type="submit" name="submit" onclick=login() value="test" class="mdc-button mdc-button--raised mdc-button--primary">
+
+</div></div></center>
+    <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+    <script>mdc.autoInit()</script>
+  </body>
